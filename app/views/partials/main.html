@@ -1,0 +1,21 @@
+<div ng-include="'partials/navbar'"></div>
+<div class="jumbotron" ng-hide="isLoggedIn">
+  <img src="images/rubberkitty.png" alt="I'm RubberCat!">
+  <h1 class="rubbercat">RubberCat</h1>
+  <p class="lead">
+    is a Code Annotation Tool inspired by<br>
+    <a href="http://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duckie debugging</a>.
+  </p>
+  <p><a class="btn btn-lg btn-success" ng-href="/trykitty">Try it!</a></p>
+</div>
+
+<div ng-show="isLoggedIn" class="panel panel-default">
+  <div class="panel-heading">{{currentUser.name}}'s cats</div>
+  <ul class="list-group">
+    <li ng-repeat="cat in currentUser.cats" class="list-group-item"><a href="/kitty/{{currentUser.name}}/{{currentUser.cats[$index]._id}}">{{currentUser.cats[$index].title}}</a></li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p>♥ Find it on GitHub, eventually...</p>
+</div>

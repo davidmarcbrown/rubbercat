@@ -1,0 +1,38 @@
+<div ng-include="'partials/navbar'"></div>
+
+<div ng-show="kittyUI.textEntryVisibility" class="panel panel-default">
+  <form novalidate name="kittyForm">
+    <div class="panel-body">
+    	<textarea ng-model="data.kittyCode" required class="form-control" rows="20" placeholder="Paste some code here!"></textarea>
+    </div>
+    <div class="panel-footer text-right">
+      <span class="label label-default" ng-show="kittyForm.$invalid || isUnchanged(data.kittyCode)">Put some code in the text box to continue!</span>
+    	<button type="button" class="btn btn-success" ng-click="kittySubmit()" ng-hide="kittyForm.$invalid || isUnchanged(data.kittyCode)"><span class="glyphicon glyphicon-ok"></span></button>
+    </div>
+  </form>
+</div>
+
+<div  ng-show="kittyUI.parsedCodeVisibility" class="container editorcontainer">
+  <div ng-repeat="line in kittyEditorData.lines track by $index" ng-controller="KittyLineEditor" class="row">
+  	<div class='col-xs-1 numbersdiv'>
+      <pre ng-class="$first ? 'first' : ''" class="numberspre">{{$index + 1}}</pre>
+    </div>
+    <div class='col-xs-11 lineofcodediv'>
+      <pre class="lineofcodepre" ng-class="{ first : $first, hasAnnotation : line.annotation, lineofcodeprewrap : isActive }" ng-click="editLine()">{{line.code}}</pre>
+      <div ng-show="isActive">
+        <div ng-show="isEditing" class="containsInnerEditButton">
+        	<button type="button" class="btn btn-success innerEditButton" ng-click="doneEditing()"><span class="glyphicon glyphicon-ok"></span></button>
+          <textarea class="form-control" ng-model="annotation" placeholder="Add your annotation here." rows="24"></textarea>
+        </div>
+        <div ng-hide="isEditing" class="containsEditMeButton">
+       	  <button type="button" class="btn editMeButton" ng-click="startEditing()"><span class="glyphicon glyphicon-pencil"></span></button>
+          <div btf-markdown="line.annotation" class="annotation"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>♥ RubberCat is a work in progress! Some features might be missing and there will be bugs.</p>
+</div>
