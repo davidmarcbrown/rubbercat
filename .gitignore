@@ -6,5 +6,5 @@ app/bower_components
 heroku
 /views
 dist
-lib/config/CONSTANTS.js
+
 
