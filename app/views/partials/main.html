@@ -6,14 +6,21 @@
     is a Code Annotation Tool inspired by<br>
     <a href="http://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duckie debugging</a>.
   </p>
-  <p><a class="btn btn-lg btn-success" ng-href="/trykitty">Try it!</a></p>
+  <p><a class="btn btn-lg btn-success" ng-href="/kitty">Try it!</a></p>
 </div>
 
-<div ng-show="isLoggedIn" class="panel panel-default">
-  <div class="panel-heading">{{currentUser.name}}'s cats</div>
-  <ul class="list-group">
-    <li ng-repeat="cat in currentUser.cats" class="list-group-item"><a href="/kitty/{{currentUser.name}}/{{currentUser.cats[$index]._id}}">{{currentUser.cats[$index].title}}</a></li>
-  </ul>
+<div ng-show="isLoggedIn">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {{currentUser.name}}'s cats
+    </div>
+    <div class="panel-body">
+      <p><a href="/kitty"><button type="button" class="btn btn-default">New Cat</button></a></p>
+      <ul class="list-group">
+        <li ng-repeat="cat in currentUser.profile.cats" class="list-group-item"><a href="/kitty/{{currentUser.profile.cats[$index]._id}}">{{currentUser.profile.cats[$index].title}}</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <div class="footer">

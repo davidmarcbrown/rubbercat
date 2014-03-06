@@ -44,6 +44,14 @@
                ng-minlength="3"
                required
                mongoose-error/>
+
+        <br><label>Verify password</label>
+        
+        <input type="password" name="passverify" class="form-control" ng-model="user.passverify"
+               ng-minlength="3"
+               required
+               mongoose-error/>
+
         <p class="help-block"
            ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
           Password must be at least 3 characters.
@@ -53,7 +61,10 @@
         </p>
       </div>
 
-      <button class="btn btn-lg btn-primary" type="submit">Sign up</button>
+      <p class="help-block" ng-show="user.password !== user.passverify">
+        Passwords don't match.
+      </p>
+      <button class="btn btn-lg btn-primary" ng-hide="!(user.password && user.passverify) || (user.password !== user.passverify)" type="submit">Sign up</button>
     </form>
   </div>
 </div>

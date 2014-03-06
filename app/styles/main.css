@@ -80,14 +80,13 @@ body {
 
 /* rubbercat specific */
 code, pre {
-  margin-top: 0;
+  margin-top: -1px;
   margin-bottom: 0;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
   border-radius: 0;
   white-space: pre;
   overflow: hidden;
-  border-top: none;
   font-size: 0.75em;
 }
 
@@ -154,8 +153,15 @@ textarea {
 
 .annotation {
   min-height: 5em;
+  margin: 1em;
 }
 
 .containsEditMeButton {
   position: relative;
+}
+
+.kittyTextarea {
+  border-top: none;
+  border-bottom: none;
+  border-radius: 0px;
 }

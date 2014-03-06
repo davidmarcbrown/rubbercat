@@ -1,20 +1,17 @@
 'use strict';
 
 angular.module('rubbercatApp')
-  .factory('KittyParse', function ( $sanitize ) {
+  .factory('KittyParse', function () {
 		return function ( parseMe ){
-      var editorData = {}
-      
       parseMe = parseMe.replace(/\t/g, '    ');
       parseMe = parseMe.split('\n');
 
-      editorData.lines = [];
+      var lines = [];
 
       for ( var i = 0; i < parseMe.length; i++ ) {
-        editorData.lines.push( { 'code' : parseMe[i],
-                                 'annotation' : "" });
+        lines.push( { 'code' : parseMe[i], 'annotation' : '' });
       }
-			return editorData;
+			return lines;
 
 		};
   });

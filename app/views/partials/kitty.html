@@ -1,38 +1,61 @@
 <div ng-include="'partials/navbar'"></div>
 
-<div ng-show="kittyUI.textEntryVisibility" class="panel panel-default">
-  <form novalidate name="kittyForm">
-    <div class="panel-body">
-    	<textarea ng-model="data.kittyCode" required class="form-control" rows="20" placeholder="Paste some code here!"></textarea>
+<div class="row">
+  <div ng-hide="kittyId" class="panel panel-default">
+    <div class="panel-heading">
+      <div class="input-group">
+        <span class="input-group-addon">Title</span>
+        <input type="text" class="form-control" placeholder="Untitled" ng-model="kittyEditorData.title"></input>
+      </div>
     </div>
-    <div class="panel-footer text-right">
-      <span class="label label-default" ng-show="kittyForm.$invalid || isUnchanged(data.kittyCode)">Put some code in the text box to continue!</span>
-    	<button type="button" class="btn btn-success" ng-click="kittySubmit()" ng-hide="kittyForm.$invalid || isUnchanged(data.kittyCode)"><span class="glyphicon glyphicon-ok"></span></button>
-    </div>
-  </form>
-</div>
+    <form novalidate name="kittyForm">
+      <div class="panel-body">
+      	<textarea msd-elastic="\n" ng-model="kittyEditorData.unparsed" required class="form-control" rows="10" placeholder="Paste some code here!"></textarea>
+      </div>
+      <div class="panel-footer text-right">
+        <span class="label label-default" ng-show="kittyForm.$invalid || isUnchanged(kittyEditorData.unparsed)">Put some code in the text box to continue!</span>
+      	<button type="button" class="btn btn-success" ng-click="kittySubmit()" ng-hide="kittyForm.$invalid || isUnchanged(kittyEditorData.unparsed)"><span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    </form>
+  </div>
 
-<div  ng-show="kittyUI.parsedCodeVisibility" class="container editorcontainer">
-  <div ng-repeat="line in kittyEditorData.lines track by $index" ng-controller="KittyLineEditor" class="row">
-  	<div class='col-xs-1 numbersdiv'>
-      <pre ng-class="$first ? 'first' : ''" class="numberspre">{{$index + 1}}</pre>
+  <div  ng-show="kittyId" class="container editorcontainer">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>{{kittyEditorData.title}} <small>by {{kittyEditorData.createdBy}}</small></h2>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>Created on {{kittyEditorData.dateCreated | date:'short'}}</li>
+          <li>Last modified on {{kittyEditorData.dateModified | date:'short'}}</li>
+        </ul>
+        <button type="button" ng-show="kittyEditorData.isAnon && !kittyEditorData.isLocked" class="btn btn-default" ng-click="lockCat()">Lock This Cat</button>
+        <button type="button" ng-show="isMine && !kittyEditorData.isAnon && !kittyEditorData.isPrivate" class="btn btn-default" ng-click="privacy(true)">Make This Cat Private</button>
+        <button type="button" ng-show="isMine && !kittyEditorData.isAnon && kittyEditorData.isPrivate" class="btn btn-default" ng-click="privacy(false)">Make This Cat Public</button>
+      </div>
     </div>
-    <div class='col-xs-11 lineofcodediv'>
-      <pre class="lineofcodepre" ng-class="{ first : $first, hasAnnotation : line.annotation, lineofcodeprewrap : isActive }" ng-click="editLine()">{{line.code}}</pre>
-      <div ng-show="isActive">
-        <div ng-show="isEditing" class="containsInnerEditButton">
-        	<button type="button" class="btn btn-success innerEditButton" ng-click="doneEditing()"><span class="glyphicon glyphicon-ok"></span></button>
-          <textarea class="form-control" ng-model="annotation" placeholder="Add your annotation here." rows="24"></textarea>
-        </div>
-        <div ng-hide="isEditing" class="containsEditMeButton">
-       	  <button type="button" class="btn editMeButton" ng-click="startEditing()"><span class="glyphicon glyphicon-pencil"></span></button>
-          <div btf-markdown="line.annotation" class="annotation"></div>
+
+
+    <div ng-repeat="line in kittyEditorData.lines track by $index" ng-controller="KittyLineEditor" class="row">
+    	<div class='col-xs-1 numbersdiv'>
+        <pre ng-class="$first ? 'first' : ''" class="numberspre">{{$index + 1}}</pre>
+      </div>
+      <div class='col-xs-11 lineofcodediv'>
+        <pre class="lineofcodepre" ng-class="{ first : $first, hasAnnotation : line.annotation || (isEditing&&isActive), lineofcodeprewrap : isActive }" ng-click="editLine()">{{line.code}}</pre>
+        <div ng-show="isActive">
+          <div ng-show="isEditing" class="containsInnerEditButton">
+          	<button type="button" class="btn btn-success innerEditButton" ng-click="doneEditing()"><span class="glyphicon glyphicon-ok"></span></button>
+            <textarea msd-elastic="\n" class="form-control kittyTextarea" ng-model="annotation" placeholder="Add your annotation here." rows="10"></textarea>
+          </div>
+          <div ng-hide="isEditing" class="containsEditMeButton">
+         	  <button type="button" class="btn editMeButton" ng-hide="kittyEditorData.isLocked && currentUserName !== kittyEditorData.createdBy" ng-click="startEditing()"><span class="glyphicon glyphicon-pencil"></span></button>
+            <div btf-markdown="line.annotation" class="annotation"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <div class="footer">
   <p>♥ RubberCat is a work in progress! Some features might be missing and there will be bugs.</p>
 </div>

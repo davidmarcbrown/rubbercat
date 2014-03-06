@@ -5,7 +5,8 @@ angular.module('rubbercatApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'btford.markdown'
+  'btford.markdown',
+  'monospaced.elastic'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -26,11 +27,11 @@ angular.module('rubbercatApp', [
         controller: 'SettingsCtrl',
         authenticate: true
       })
-      .when('/trykitty', {
+      .when('/kitty', {
         templateUrl: 'partials/kitty',
-        controller: 'KittyTestCtrl'
+        controller: 'KittyCtrl'
       })
-      .when('/kitty/:user/:cat', {
+      .when('/kitty/:id', {
         templateUrl: 'partials/kitty',
         controller: 'KittyCtrl'
       })
