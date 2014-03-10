@@ -35,6 +35,14 @@ angular.module('rubbercatApp', [
         templateUrl: 'partials/kitty',
         controller: 'KittyCtrl'
       })
+      .when('/privacy', {
+        templateUrl: 'partials/privacy',
+        controller: ''
+      })
+      .when('/terms', {
+        templateUrl: 'partials/terms',
+        controller: ''
+      })
       .otherwise({
         redirectTo: '/'
       });

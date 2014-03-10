@@ -6,7 +6,8 @@
     is a Code Annotation Tool inspired by<br>
     <a href="http://en.wikipedia.org/wiki/Rubber_duck_debugging">rubber duckie debugging</a>.
   </p>
-  <p><a class="btn btn-lg btn-success" ng-href="/kitty">Try it!</a></p>
+  <p><a class="btn btn-lg btn-success" ng-href="/kitty/example">See It In Action</a></p>
+  <p><a class="btn btn-lg btn-default" ng-href="/kitty">Try It Yourself</a></p>
 </div>
 
 <div ng-show="isLoggedIn">
@@ -17,12 +18,14 @@
     <div class="panel-body">
       <p><a href="/kitty"><button type="button" class="btn btn-default">New Cat</button></a></p>
       <ul class="list-group">
-        <li ng-repeat="cat in currentUser.profile.cats" class="list-group-item"><a href="/kitty/{{currentUser.profile.cats[$index]._id}}">{{currentUser.profile.cats[$index].title}}</a></li>
+        <li ng-repeat="cat in currentUser.profile.cats" class="list-group-item"><a href="/kitty/{{currentUser.profile.cats[$index]._id}}">{{currentUser.profile.cats[$index].title}}</a>
+        <div ng-click="deleteCat(currentUser.profile.cats[$index]._id, $index)" class="pull-right"><span class="glyphicon glyphicon-trash"></span></div>
+</li>
       </ul>
     </div>
   </div>
 </div>
 
 <div class="footer">
-  <p>♥ Find it on GitHub, eventually...</p>
+  <p>♥ See the <a href="/privacy">privacy policy</a> and the <a href="/terms">terms of service</a>.</p>
 </div>
