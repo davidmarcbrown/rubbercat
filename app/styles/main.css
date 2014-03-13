@@ -142,13 +142,13 @@ textarea {
 .innerEditButton {
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  right: -25px;
 }
 
 .editMeButton {
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: -25px;
 }
 
 .annotation {
@@ -162,6 +162,6 @@ textarea {
 
 .kittyTextarea {
   border-top: none;
-  border-bottom: none;
+  border-bottom: -1px solid #ccc;
   border-radius: 0px;
 }
