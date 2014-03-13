@@ -2,7 +2,7 @@
 
 angular.module('rubbercatApp')
   .factory('KittyParse', function () {
-		return function ( parseMe ){
+		return function ( parseMe, cb ){
       parseMe = parseMe.replace(/\t/g, '    ');
       parseMe = parseMe.split('\n');
 
@@ -11,7 +11,6 @@ angular.module('rubbercatApp')
       for ( var i = 0; i < parseMe.length; i++ ) {
         lines.push( { 'code' : parseMe[i], 'annotation' : '' });
       }
-			return lines;
-
+			cb(lines);
 		};
   });

@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('rubbercatApp')
-  .controller('KittyLineEditor', function ($rootScope, $scope, KittyOps) {
+  .controller('KittyLineEditor', function ($scope, KittyOps) {
+    if ( $scope.kittyId ){
       $scope.isActive = false;
-      $scope.currentUserName = $rootScope.currentUser ? $rootScope.currentUser.name : null;
       $scope.annotation = $scope.line.annotation;
       $scope.isEditing = !$scope.line.annotation;
 
@@ -35,6 +35,7 @@ angular.module('rubbercatApp')
           function ( value ) {
             console.log('Successfully updated.');
             $scope.kittyEditorData.dateModified = value.dateModified;
+            $scope.theForm.$setPristine();
           },
           // failure
           function () {
@@ -42,4 +43,5 @@ angular.module('rubbercatApp')
           }
         );
       };
-    });
+    }
+  });
